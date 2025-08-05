@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AlertProximity</title>
+    <title>AlertProximity | Proximity Status</title>
 
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
 
@@ -43,7 +43,8 @@
             font-weight: 500;
             color: #f5f5f5;
         }
-        .cta-button {
+        .nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .nav-button {
             background-color: #f5f5f5;
             color: #fa893e;
             padding: 0.5rem 1rem;
@@ -139,7 +140,7 @@
             <span>AlertProximity</span>
         </div>
         <div class="nav-actions">
-            <a href="{{ route('proximity.form') }}" class="cta-button">Check Another Delivery</a>
+            <a href="{{ route('proximity.form') }}" class="nav-button">Check Proximity</a>
         </div>
     </nav>
 

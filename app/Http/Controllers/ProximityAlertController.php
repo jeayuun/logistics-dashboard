@@ -8,9 +8,6 @@ use App\Models\AlertLog;
 
 class ProximityAlertController extends Controller
 {
-    /**
-     * Send coordinates to the Flask API and return the response to a view.
-     */
     public function checkProximity(Request $request)
     {
         $validated = $request->validate([
@@ -20,7 +17,7 @@ class ProximityAlertController extends Controller
         ]);
 
         $flaskApiUrl = 'http://127.0.0.1:5000/check_proximity';
-        $warehouseCoords = [14.5995, 120.9842];
+        $warehouseCoords = [14.5983, 121.0069];
 
         $response = Http::post($flaskApiUrl, [
             'warehouse' => $warehouseCoords,
@@ -28,7 +25,6 @@ class ProximityAlertController extends Controller
             'radius' => $validated['radius'],
         ]);
 
-        // ** NEW: Check if the API call failed **
         if ($response->failed()) {
             return back()->withErrors([
                 'api_error' => 'Could not connect to the Proximity API. Please make sure the Python server is running.'
@@ -50,12 +46,25 @@ class ProximityAlertController extends Controller
         ]);
 
 
-        // If successful, continue to the results view
         return view('dashboard.alerts', [
             'data' => $response->json(),
             'warehouse' => $warehouseCoords,
             'delivery' => [$validated['lat'], $validated['lng']],
             'radius' => $validated['radius']
         ]);
+    }
+
+    public function showForm()
+    {
+        $logs = \App\Models\AlertLog::latest()->take(5)->get();
+
+        return view('dashboard.form', ['logs' => $logs]);
+    }
+
+    public function showHistory()
+    {
+        $logs = \App\Models\AlertLog::latest()->simplePaginate(5);
+
+        return view('dashboard.history', ['logs' => $logs]);
     }
 }
