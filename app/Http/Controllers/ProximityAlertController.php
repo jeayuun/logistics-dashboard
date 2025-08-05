@@ -43,8 +43,10 @@ class ProximityAlertController extends Controller
             'delivery_lat' => $validated['lat'],
             'delivery_lng' => $validated['lng'],
             'radius' => $validated['radius'],
-            'distance' => $apiData['distance'],
+            'distance' => $apiData['geodesic_distance'],
             'within_range' => $apiData['within_range'],
+            'route_distance' => $apiData['route_distance'],
+            'duration' => $apiData['duration'], 
         ]);
 
 

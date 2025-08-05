@@ -23,5 +23,7 @@ class AlertLog extends Model
         'radius',
         'distance',
         'within_range',
+        'route_distance',
+        'duration',  
     ];
 }
